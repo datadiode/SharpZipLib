@@ -12,7 +12,8 @@ namespace ICSharpCode.SharpZipLib.Benchmark
 		public MultipleRuntimes()
 		{
 			AddJob(Job.Default.WithToolchain(CsProjClassicNetToolchain.Net461).AsBaseline()); // NET 4.6.1
-			AddJob(Job.Default.WithToolchain(CsProjCoreToolchain.NetCoreApp21)); // .NET Core 2.1
+			AddJob(Job.Default.WithToolchain(CsProjClassicNetToolchain.Net47)); // NET 4.7
+			AddJob(Job.Default.WithToolchain(CsProjCoreToolchain.NetCoreApp20)); // .NET Core 2.0
 			//Add(Job.Default.With(CsProjCoreToolchain.NetCoreApp30)); // .NET Core 3.0
 		}
 	}

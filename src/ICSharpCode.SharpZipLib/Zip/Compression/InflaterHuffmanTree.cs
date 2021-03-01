@@ -53,7 +53,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
 				{
 					codeLengths[i++] = 8;
 				}
-				defLitLenTree = new InflaterHuffmanTree(codeLengths);
+				defLitLenTree = new InflaterHuffmanTree(new ArraySegment<byte>(codeLengths));
 
 				codeLengths = new byte[32];
 				i = 0;
@@ -61,7 +61,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
 				{
 					codeLengths[i++] = 5;
 				}
-				defDistTree = new InflaterHuffmanTree(codeLengths);
+				defDistTree = new InflaterHuffmanTree(new ArraySegment<byte>(codeLengths));
 			}
 			catch (Exception)
 			{
@@ -77,21 +77,21 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
 		/// <param name = "codeLengths">
 		/// the array of code lengths
 		/// </param>
-		public InflaterHuffmanTree(IList<byte> codeLengths)
+		public InflaterHuffmanTree(ArraySegment<byte> codeLengths)
 		{
 			BuildTree(codeLengths);
 		}
 
 		#endregion Constructors
 
-		private void BuildTree(IList<byte> codeLengths)
+		private void BuildTree(ArraySegment<byte> codeLengths)
 		{
 			int[] blCount = new int[MAX_BITLEN + 1];
 			int[] nextCode = new int[MAX_BITLEN + 1];
 
 			for (int i = 0; i < codeLengths.Count; i++)
 			{
-				int bits = codeLengths[i];
+				int bits = codeLengths.Array[codeLengths.Offset + i];
 				if (bits > 0)
 				{
 					blCount[bits]++;
@@ -138,7 +138,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
 
 			for (int i = 0; i < codeLengths.Count; i++)
 			{
-				int bits = codeLengths[i];
+				int bits = codeLengths.Array[codeLengths.Offset + i];
 				if (bits == 0)
 				{
 					continue;

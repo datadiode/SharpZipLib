@@ -715,7 +715,7 @@ namespace ICSharpCode.SharpZipLib.Tar
 
 			if (asciiTrans)
 			{
-				using (var outw = new StreamWriter(outputStream, new UTF8Encoding(false), 1024, true))
+				using (var outw = new StreamWriter(outputStream, new UTF8Encoding(false), 1024))
 				{
 					byte[] rdbuf = new byte[32 * 1024];
 

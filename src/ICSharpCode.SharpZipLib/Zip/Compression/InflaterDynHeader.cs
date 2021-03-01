@@ -57,7 +57,7 @@ namespace ICSharpCode.SharpZipLib.Zip.Compression
 				while (!input.TryGetBits(3, ref codeLengths, MetaCodeLengthIndex[i])) yield return false;
 			}
 
-			var metaCodeTree = new InflaterHuffmanTree(codeLengths);
+			var metaCodeTree = new InflaterHuffmanTree(new ArraySegment<byte>(codeLengths));
 
 			// Decompress the meta tree symbols into the data table code lengths
 			int index = 0;

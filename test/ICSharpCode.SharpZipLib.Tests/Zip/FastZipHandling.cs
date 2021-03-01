@@ -316,8 +316,9 @@ namespace ICSharpCode.SharpZipLib.Tests.Zip
 			var preCp = ZipStrings.CodePage;
 			try
 			{
+#if !NET47
 				Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-
+#endif
 				foreach ((string language, string filename, string encoding) in StringTesting.GetTestSamples())
 				{
 					Console.WriteLine($"{language} filename \"{filename}\" using \"{encoding}\":");

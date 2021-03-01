@@ -3,6 +3,15 @@ using System;
 namespace ICSharpCode.SharpZipLib.Checksum
 {
 	/// <summary>
+	/// Fake MethodImplOptions to target .NET Framework 4.0
+	/// </summary>
+	static class MethodImplOptions
+	{
+		public const short AggressiveInlining = 256; // Introduced in .NET Framework 4.5
+		public const short NoInlining = (short)System.Runtime.CompilerServices.MethodImplOptions.NoInlining;
+	}
+
+	/// <summary>
 	/// Interface to compute a data checksum used by checked input/output streams.
 	/// A data checksum can be updated by one byte or with a byte array. After each
 	/// update the value of the current checksum can be returned by calling

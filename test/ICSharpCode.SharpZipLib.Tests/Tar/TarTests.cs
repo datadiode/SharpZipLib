@@ -24,7 +24,9 @@ namespace ICSharpCode.SharpZipLib.Tests.Tar
 		[SetUp]
 		public void Setup()
 		{
+#if !NET47
 			Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+#endif
 		}
 
 		/// <summary>
