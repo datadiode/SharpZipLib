@@ -4,7 +4,8 @@ $description = $(git describe --long --tags --match 'v[0-9]*.[0-9]*.[0-9]*').sub
 # Description is in the format of: TAG-COMMITS_SINCE_TAG-COMMIT_HASH
 $dparts = $description -split('-');
 $short_version = $dparts[0];
-If ($dparts.Count -eq 4) { $short_version += '-' + $dparts[1]; }
+$long_version = $short_version;
+If ($dparts.Count -eq 4) { $long_version += '-' + $dparts[1]; }
 $commits_since_tag = $dparts[$dparts.Count - 2];
 $commit_hash = $dparts[$dparts.Count - 1];
 
@@ -27,7 +28,7 @@ $build = ${env:APPVEYOR_BUILD_NUMBER}
 
 $is_release_build = ($commits_since_tag -eq 0 -and $is_main_build) 
 
-$version = $(if ($is_release_build) { $short_version } else { "$short_version-$commit_hash" })
+$version = $(if ($is_release_build) { $short_version } else { "$long_version-$commit_hash" })
 $bin_version = "$short_version.$build"
 
 write-host -n "Branch: ";
