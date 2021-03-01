@@ -4,8 +4,9 @@ $description = $(git describe --long --tags --match 'v[0-9]*.[0-9]*.[0-9]*').sub
 # Description is in the format of: TAG-COMMITS_SINCE_TAG-COMMIT_HASH
 $dparts = $description -split('-');
 $short_version = $dparts[0];
-$commits_since_tag = $dparts[1];
-$commit_hash = $dparts[2];
+If ($dparts.Count -eq 4) { $short_version += '-' + $dparts[1]; }
+$commits_since_tag = $dparts[$dparts.Count - 2];
+$commit_hash = $dparts[$dparts.Count - 1];
 
 $masterBranches = @("master");
 
