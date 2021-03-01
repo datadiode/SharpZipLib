@@ -5,7 +5,7 @@ $description = $(git describe --long --tags --match 'v[0-9]*.[0-9]*.[0-9]*').sub
 $dparts = $description -split('-');
 $short_version = $dparts[0];
 $long_version = $short_version;
-If ($dparts.Count -eq 4) { $long_version += '-' + $dparts[1]; }
+If ($dparts.Count -eq 4) { $long_version += '-' + $dparts[1] + '-' + $dparts[2]; }
 $commits_since_tag = $dparts[$dparts.Count - 2];
 $commit_hash = $dparts[$dparts.Count - 1];
 
