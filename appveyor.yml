@@ -7,7 +7,7 @@ dotnet_csproj:
   patch: true
   file: '**\*.csproj'
   version: $(VERSION)
-  package_version: $(VERSION)
+  package_version: $(VERSION)-$(configuration)
   assembly_version: $(BIN_VERSION)
   file_version: $(BIN_VERSION)
   informational_version: $(VERSION)
