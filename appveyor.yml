@@ -8,7 +8,7 @@ before_build:
 - ps: .\tools\appveyor-docfx-init.ps1
 build_script:
 - for /f "tokens=1,* delims=-" %%a in ('"git describe --tags --long"') do set version_suffix=%%b
-- msbuild ICSharpCode.SharpZipLib.sln /t:Rebuild /p:VersionSuffix="%version_suffix%-%CONFIGURATION%" /p:Platform="%PLATFORM%" /p:Configuration="%CONFIGURATION%"
+- dotnet build ICSharpCode.SharpZipLib.sln --version-suffix "%version_suffix%-%CONFIGURATION%"
 after_build:
 - ps: .\tools\appveyor-docfx-build.ps1
 test_script:
