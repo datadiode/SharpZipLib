@@ -3,32 +3,18 @@ image: Visual Studio 2019
 configuration:
 - Debug
 - Release
-dotnet_csproj:
-  patch: true
-  file: '**\*.csproj'
-  version: $(VERSION)
-  package_version: $(VERSION)-$(configuration)
-  assembly_version: $(BIN_VERSION)
-  file_version: $(BIN_VERSION)
-  informational_version: $(VERSION)
-install:
-- ps: tools/appveyor-install.ps1
-nuget:
-  project_feed: true
-  disable_publish_on_pr: true
 before_build:
 - ps: nuget restore ICSharpCode.SharpZipLib.sln
 - ps: .\tools\appveyor-docfx-init.ps1
-build:
-  project: ICSharpCode.SharpZipLib.sln
-  publish_nuget: true
-  publish_nuget_symbols: true
-  verbosity: normal
+build_script:
+- for /f "tokens=1,* delims=-" %%a in ('"git describe --tags --long"') do set version_suffix=%%b
+- msbuild ICSharpCode.SharpZipLib.sln /t:Rebuild /p:VersionSuffix="%version_suffix%-%CONFIGURATION%" /p:Platform="%PLATFORM%" /p:Configuration="%CONFIGURATION%"
 after_build:
 - ps: .\tools\appveyor-docfx-build.ps1
 test_script:
 - ps: tools\appveyor-test.ps1
 artifacts:
+- path: ICSharpCode.SharpZipLib\bin\$(configuration)\*.nupkg
 - path: docs\help\_site
   type: zip
   name: Documentation
